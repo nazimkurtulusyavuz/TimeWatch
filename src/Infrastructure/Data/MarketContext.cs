@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
-    public class MarketContext :DbContext
+    public class MarketContext : DbContext
     {
         public MarketContext(DbContextOptions<MarketContext> options) : base(options)
         {
@@ -17,6 +17,7 @@ namespace Infrastructure.Data
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<Style> Styles { get; set; }
         public DbSet<Product> Products { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
