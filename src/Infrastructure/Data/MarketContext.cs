@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
-    public class WatchMarketContext :DbContext
+    public class MarketContext :DbContext
     {
-        public WatchMarketContext(DbContextOptions<WatchMarketContext> options) : base(options)
+        public MarketContext(DbContextOptions<MarketContext> options) : base(options)
         {
 
         }
