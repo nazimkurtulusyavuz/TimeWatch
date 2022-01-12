@@ -1,0 +1,97 @@
+﻿@model ListViewModel
+@{
+    ViewData["Title"] = "Filtered Products Page";
+}
+
+<div class="card border-0" style="margin-top:3em">
+    <form id="frmFilters" class="card-body form-inline">
+        <select class="form-control ml-sm-2 border-0 font-weight-bold" asp-items="Model.Categories" asp-for="Category">
+            <option value="">All Categories</option>
+        </select>
+        <select class="form-control ml-sm-2 border-0 font-weight-bold" asp-items="Model.Brands" asp-for="Brand">
+            <option value="">All Brands</option>
+        </select>
+        <select class="form-control ml-sm-2 border-0 font-weight-bold" asp-items="Model.Styles" asp-for="Style">
+            <option value="">All Styles</option>
+        </select>
+    </form>
+</div>
+
+<div class="row mt-3">
+    @foreach (var item in Model.Products)
+    {
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card mb-3 border-0">
+                <div class="mt-2">
+                    <a asp-controller="Home" asp-action="SingleProduct" asp-route-product="@item.Name">
+                    <img src="~/uploads/products/@item.PictureUri" class="card-img-top" alt="@item.Name">
+                    </a>
+                </div>
+                <div class="card-body px-3 pt-1">
+                    <div class="product-title" title="@item.Name @item.Description">@item.Name @item.Description</div>
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        @if (item.DiscountRate.ToString() != "0")
+                        {
+                            <span style="font-weight:600; color:blue; text-decoration:line-through"><span style="color:black">@item.PriceBeforeDiscountText</span></span>
+                            <span style="font-weight:600; color:red">@item.PriceText</span>
+                        }
+                        else /*if(item.DiscountRate == 0)*/
+                        {
+                            <span style="font-weight:600">@item.PriceText</span>
+
+                        }
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-cart-plus"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<nav class="mt-3">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(!Model.PaginationInfo.HasPrevious ? "disabled" : "")">
+            @{ await PageLink(Model.PaginationInfo.CurrentPage - 1, "&laquo;"); }
+        </li>
+
+        @foreach (int i in Model.PaginationInfo.PageNumbers)
+        {
+            if (i == -1)
+            {
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">&hellip;</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item @(i == Model.PaginationInfo.CurrentPage ? "active" : "")">
+                    @{ await PageLink(i, "." @*i.ToString()*@); }
+                </li>
+            }
+        }
+
+        <li class="page-item  @(!Model.PaginationInfo.HasNext ? "disabled" : "")">
+            @{ await PageLink(Model.PaginationInfo.CurrentPage + 1, "&raquo;"); }
+
+        </li>
+    </ul>
+</nav>
+
+
+@section Scripts {
+    <script>
+        $("form#frmFilters select").change(function () {
+            $("#frmFilters").submit();
+        });
+    </script>
+}
+
+@{
+    async Task PageLink(int pageNo, string text)
+    {
+        <a class="page-link font-weight-bold" asp-route-Category="@Model.Category" asp-route-Brand="@Model.Brand" asp-route-Style="@Model.Style" asp-route-Page="@pageNo">@Html.Raw(text)</a>
+    }
+}

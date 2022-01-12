@@ -3,13 +3,260 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Products</h1>
 
-@foreach (var item in Model.Products)
-{
-    <p>
-        <img src="~/uploads/products/@item.PictureUri" width="100"/> 
-        @item.Name 
-        $@item.Price
-    </p>
-}
+<!-- Carousel Starts Here -->
+<div id="carouselHomePage" class="carousel slide mb-5" style="margin-top:100px" data-ride="carousel">
+
+    @*Indicators*@
+    <ul class="carousel-indicators">
+        <li data-target="#carouselHomePage" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselHomePage" data-slide-to="1"></li>
+        <li data-target="#carouselHomePage" data-slide-to="2"></li>
+    </ul>
+
+    @*The slideshow*@
+    <div class="carousel-inner">
+        <div class="carousel-item active text-center">
+            <img src="~/uploads/carousel/wesse.jpg" class="img-responsive img-cus" alt="wesse">
+        </div>
+        <div class="carousel-item text-center ">
+            <img src="~/uploads/carousel/fossil.jpg" class="img-responsive img-cus" alt="fossil">
+        </div>
+        <div class="carousel-item text-center">
+            <img src="~/uploads/carousel/michaelkors.jpg" class="img-responsive img-cus" alt="michaelkors">
+        </div>
+    </div>
+
+    @*Left and right controls*@
+    <a class="carousel-control-prev" href="#carouselHomePage" data-slide="prev">
+        <span class="carousel-control-prev-icon btn btn-dark border-0"></span>
+    </a>
+    <a class="carousel-control-next" href="#carouselHomePage" data-slide="next">
+        <span class="carousel-control-next-icon btn btn-dark border-0"></span>
+    </a>
+</div>
+<!-- Carousel Ends Here -->
+<!-- MostPopularProducts Starts Here -->
+<div class="featured-items">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading mt-5 mb-3">
+                    <h5 class="text-primary bg-light text-center">Popular Products</h5>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="owl-carousel owl-theme">
+                    @for (int i = 0; i < Model.MostPopularProducts.Count; i++)
+                    {
+                        <div>
+                            <a asp-controller="Home" asp-action="SingleProduct" asp-route-product="@Model.MostPopularProducts[i].Name">
+                                <div class="featured-item border-0">
+                                    <div class="position-relative">
+                                        @if (Model.MostPopularProducts[i].DiscountRate != 0)
+                                        {
+                                            <p id="discountRate"
+                                               style="position: absolute; right: 5px; top: 0; color: red; font-weight: 700; z-index: 100;">
+                                                %@Model.MostPopularProducts[i].DiscountRate
+                                            </p>
+                                        }
+                                        <img src="~/uploads/products/@(Model.MostPopularProducts[i].PictureUri)" alt="@Model.MostPopularProducts[i].Name">
+                                    </div>
+                                    <h4>@Model.MostPopularProducts[i].Name</h4>
+                                    @if (Model.MostPopularProducts[i].DiscountRate.ToString() != "0")
+                                    {
+                                        <div class="d-flex justify-content-between">
+                                            <h6>
+                                                <span style="color: cornflowerblue; text-decoration: line-through">
+                                                    <span style="color:black">@Model.MostPopularProducts[i].PriceBeforeDiscountText</span>
+                                                </span>
+                                            </h6>
+                                            <h6>@Model.MostPopularProducts[i].PriceText</h6>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <h6>@Model.MostPopularProducts[i].PriceText</h6>
+
+                                    }
+                                </div>
+                            </a>
+                            <a asp-controller="Home" asp-action="Index" asp-route-product="@Model.MostPopularProducts[i].Name">
+                                <i class="fas fa-cart-plus btn-primary btn-block text-center py-2 fa-lg"></i>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MostPopularProducts Ends Here -->
+<!-- MostRecentProducts Starts Here -->
+<div class="featured-items">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading mt-0 mb-3">
+                    <h5 class="text-primary bg-light text-center">New Products</h5>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="owl-carousel owl-theme">
+                    @for (int i = 0; i < Model.MostRecentProducts.Count; i++)
+                    {
+                        <div>
+                            <a asp-controller="Home" asp-action="SingleProduct" asp-route-product="@Model.MostRecentProducts[i].Name">
+                                <div class="featured-item border-0">
+                                    <div class="position-relative">
+                                        @if (Model.MostRecentProducts[i].DiscountRate != 0)
+                                        {
+                                            <p id="discountRate"
+                                               style="position: absolute; right: 5px; top: 0; color: red; font-weight: 700; z-index: 100;">
+                                                %@Model.MostRecentProducts[i].DiscountRate
+                                            </p>
+                                        }
+                                        <img src="~/uploads/products/@(Model.MostRecentProducts[i].PictureUri)" alt="@Model.MostRecentProducts[i].Name">
+                                    </div>
+                                    <h4>@Model.MostRecentProducts[i].Name</h4>
+                                    @if (Model.MostRecentProducts[i].DiscountRate.ToString() != "0")
+                                    {
+                                        <div class="d-flex justify-content-between">
+                                            <h6>
+                                                <span style="color: cornflowerblue; text-decoration: line-through">
+                                                    <span style="color:black">@Model.MostRecentProducts[i].PriceBeforeDiscountText</span>
+                                                </span>
+                                            </h6>
+                                            <h6>@Model.MostRecentProducts[i].PriceText</h6>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <h6>@Model.MostRecentProducts[i].PriceText</h6>
+
+                                    }
+                                </div>
+                            </a>
+                            <a asp-controller="Home" asp-action="Index" asp-route-product="@Model.MostRecentProducts[i].Name">
+                                <i class="fas fa-cart-plus btn-primary btn-block text-center py-2 fa-lg"></i>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MostRecentProducts Ends Here -->
+<!-- AboutToRunOutProducts Starts Here -->
+<div class="featured-items">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading mt-0 mb-3">
+                    <h5 class="text-primary bg-light text-center">Products About to Run Out</h5>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="owl-carousel owl-theme">
+                    @for (int i = 0; i < Model.AboutToRunOutProducts.Count; i++)
+                    {
+                        <div>
+                            <a asp-controller="Home" asp-action="SingleProduct" asp-route-product="@Model.AboutToRunOutProducts[i].Name">
+                                <div class="featured-item border-0">
+                                    <div class="position-relative">
+                                        @if (Model.AboutToRunOutProducts[i].DiscountRate != 0)
+                                        {
+                                            <p id="discountRate"
+                                               style="position: absolute; right: 5px; top: 0; color: red; font-weight: 700; z-index: 100;">
+                                                %@Model.AboutToRunOutProducts[i].DiscountRate
+                                            </p>
+                                        }
+                                        <img src="~/uploads/products/@(Model.AboutToRunOutProducts[i].PictureUri)" alt="@Model.AboutToRunOutProducts[i].Name">
+                                    </div>
+                                    <h4>@Model.AboutToRunOutProducts[i].Name</h4>
+                                    @if (Model.AboutToRunOutProducts[i].DiscountRate.ToString() != "0")
+                                    {
+                                        <div class="d-flex justify-content-between">
+                                            <h6>
+                                                <span style="color: cornflowerblue; text-decoration: line-through">
+                                                    <span style="color:black">@Model.AboutToRunOutProducts[i].PriceBeforeDiscountText</span>
+                                                </span>
+                                            </h6>
+                                            <h6>@Model.AboutToRunOutProducts[i].PriceText</h6>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <h6>@Model.AboutToRunOutProducts[i].PriceText</h6>
+
+                                    }
+                                </div>
+                            </a>
+                            <a asp-controller="Home" asp-action="Index" asp-route-product="@Model.AboutToRunOutProducts[i].Name">
+                                <i class="fas fa-cart-plus btn-primary btn-block text-center py-2 fa-lg"></i>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- AboutToRunOutProducts Ends Here -->
+<!-- DiscountProducts Starts Here -->
+<div class="featured-items">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading mt-0 mb-3">
+                    <h5 class="text-primary bg-light text-center">Discount Products</h5>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="owl-carousel owl-theme">
+                    @for (int i = 0; i < Model.DiscountProducts.Count; i++)
+                    {
+                        <div>
+                            <a asp-controller="Home" asp-action="SingleProduct" asp-route-product="@Model.DiscountProducts[i].Name">
+                                <div class="featured-item border-0">
+                                    <div class="position-relative">
+                                        @if (Model.DiscountProducts[i].DiscountRate != 0)
+                                        {
+                                            <p id="discountRate"
+                                               style="position: absolute; right: 5px; top: 0; color: red; font-weight: 700; z-index: 100;">
+                                                %@Model.DiscountProducts[i].DiscountRate
+                                            </p>
+                                        }
+                                        <img src="~/uploads/products/@(Model.DiscountProducts[i].PictureUri)" alt="@Model.DiscountProducts[i].Name">
+                                    </div>
+                                    <h4>@Model.DiscountProducts[i].Name</h4>
+                                    @if (Model.DiscountProducts[i].DiscountRate.ToString() != "0")
+                                    {
+                                        <div class="d-flex justify-content-between">
+                                            <h6>
+                                                <span style="color: cornflowerblue; text-decoration: line-through">
+                                                    <span style="color:black">@Model.DiscountProducts[i].PriceBeforeDiscountText</span>
+                                                </span>
+                                            </h6>
+                                            <h6>@Model.DiscountProducts[i].PriceText</h6>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <h6>@Model.DiscountProducts[i].PriceText</h6>
+
+                                    }
+                                </div>
+                            </a>
+                            <a asp-controller="Home" asp-action="Index" asp-route-product="@Model.DiscountProducts[i].Name">
+                                <i class="fas fa-cart-plus btn-primary btn-block text-center py-2 fa-lg"></i>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- DiscountProducts Ends Here -->

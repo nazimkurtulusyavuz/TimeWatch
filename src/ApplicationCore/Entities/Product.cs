@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,5 +18,10 @@ namespace ApplicationCore.Entities
         public Brand Brand { get; set; }
         public int StyleId { get; set; }
         public Style Style { get; set; }
+        public DateTime CreatedTime { get; set; } = DateTime.Now;
+        public int DiscountRate { get; set; } = 0;
+        public int SalesQuantity { get; set; } = 0;
+        public int StockQuantity { get; set; } = 0;
     }
+
 } 

@@ -4,46 +4,115 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Web</title>
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Additional CSS Files -->
+    <link href="~/assets/css/fontawesome.css" rel="stylesheet" />
+    <link href="~/assets/css/tooplate-main.css" rel="stylesheet" />
+    <link href="~/assets/css/owl.css" rel="stylesheet" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <!-- Navbar starts here -->
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Web</a>
+                <div>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <span class="font-weight-bold">T</span>
+                        <span class="font-italic text-primary">&</span>
+                        <span class="font-weight-bold">W</span>
+                    </a>
+                </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 text-black-50">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link " asp-area="" asp-controller="Home" asp-action="List"
+                               asp-route-Category="Man">
+                                Man
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="List"
+                               asp-route-Category="Woman">Woman</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="List"
+                               asp-route-Style="Classic">Classic</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="List"
+                               asp-route-Style="Sport">Sport</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="List"
+                               asp-route-Style="Smart">Smart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">Brands</a>
                         </li>
                     </ul>
+                    <i class="fas fa-search fa-lg ml-3 ml-sm-0 mr-1"></i>
                     <partial name="_LoginPartial" />
+                    <i class="fas fa-shopping-cart text-dark fa-lg ml-3 ml-sm-0"></i>
                 </div>
             </div>
         </nav>
+        <!-- Navbar ends here -->
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Footer Starts Here -->
+    <footer class="text-muted text-center mt-5">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center mb-2">
+                <div href="#" class="mx-3"><i class="fas fa-store"></i></div>
+                <div href="#" class="mx-3"><i class="far fa-credit-card"></i></div>
+                <div href="#" class="mx-3"><i class="fas fa-shipping-fast"></i>  </div>
+                <div href="#" class="mx-3"><i class="fas fa-undo"></i></div>
+            </div>
+            <div class="col-md-12 mb-2">
+                <a class="text-dark text-muted mr-2" href="#">Home</a>
+                <a class="text-dark text-muted mr-2" href="#">About</a>
+                <a class="text-dark text-muted mr-2" href="#">Privacy Policy</a>
+                <a class="text-dark text-muted mr-2" href="#">Contact Us</a>
+            </div>
+            <div class="col-md-12 mb-3">
+                <a href="#" class="mx-1"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="mx-1"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="mx-1"><i class="fa fa-linkedin"></i></a>
+                <a href="#" class="mx-1"><i class="fa fa-rss"></i></a>
+            </div>
+            <div class="col-md-12">
+                Copyright &copy; 2022 - Time<span class="text-primary">&</span>Watch<a asp-area="" asp-controller="Home" asp-action="Index"></a>
+            </div>
         </div>
     </footer>
+    <!-- Footer Ends Here -->
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+   
+    <!-- Additional Scripts -->
+    <script src="~/assets/js/custom.js"></script>
+    <script src="~/assets/js/owl.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

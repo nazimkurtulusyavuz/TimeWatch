@@ -39,7 +39,9 @@ namespace Web
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>();
             services.AddScoped(typeof(IRepository<>),typeof(EfRepository<>));
+            services.AddScoped<IListViewModelService, ListViewModelService>();
             services.AddScoped<IHomeViewModelService, HomeViewModelService>();
+            services.AddScoped<ISingleProductViewModelService, SingleProductViewModelService>();
             services.AddControllersWithViews();
         }
 

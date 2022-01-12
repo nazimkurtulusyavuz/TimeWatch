@@ -67,7 +67,6 @@ namespace Infrastructure.Data
             _db.Update(entity);
             await _db.SaveChangesAsync();
         }
-
         private IQueryable<T> ApplySpecification(ISpecification<T> specification)
         {
             var evaluator = new SpecificationEvaluator();
