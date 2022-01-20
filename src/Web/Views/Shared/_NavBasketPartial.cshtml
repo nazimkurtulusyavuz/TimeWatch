@@ -1,0 +1,13 @@
+﻿@using Web.Interfaces
+@inject IBasketViewModelService _basketViewModelService
+<ul class="navbar-nav">
+    <li class="navbar-item">
+        <a asp-controller="Basket" asp-action="Index" class="nav-link" title="My Basket">
+            <i class="fas fa-shopping-cart fa-lg ml-2 ml-sm-auto position-relative">
+                <span class="badge nav-basket-items-count text-primary font-weight-bold" style="font-size: 18px">
+                    @await _basketViewModelService.BasketItemsCountAsync()
+                </span>
+            </i>
+        </a>
+    </li>
+</ul>

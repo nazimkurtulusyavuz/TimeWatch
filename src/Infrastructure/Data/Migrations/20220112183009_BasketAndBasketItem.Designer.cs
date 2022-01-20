@@ -3,15 +3,17 @@ using System;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(MarketContext))]
-    partial class MarketContextModelSnapshot : ModelSnapshot
+    [Migration("20220112183009_BasketAndBasketItem")]
+    partial class BasketAndBasketItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,60 +94,6 @@ namespace Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("BuyerId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<string>("ProductPictureUri")
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("ProductPrice")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("numeric(18,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Product", b =>
@@ -236,60 +184,6 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ApplicationCore.Entities.Order", b =>
-                {
-                    b.OwnsOne("ApplicationCore.Entities.Address", "ShipToAdress", b1 =>
-                        {
-                            b1.Property<int>("OrderId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("integer")
-                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("character varying(100)");
-
-                            b1.Property<string>("Country")
-                                .IsRequired()
-                                .HasMaxLength(90)
-                                .HasColumnType("character varying(90)");
-
-                            b1.Property<string>("State")
-                                .HasMaxLength(60)
-                                .HasColumnType("character varying(60)");
-
-                            b1.Property<string>("Street")
-                                .IsRequired()
-                                .HasMaxLength(200)
-                                .HasColumnType("character varying(200)");
-
-                            b1.Property<string>("ZipCode")
-                                .IsRequired()
-                                .HasMaxLength(18)
-                                .HasColumnType("character varying(18)");
-
-                            b1.HasKey("OrderId");
-
-                            b1.ToTable("Orders");
-
-                            b1.WithOwner()
-                                .HasForeignKey("OrderId");
-                        });
-
-                    b.Navigation("ShipToAdress")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.OrderItem", b =>
-                {
-                    b.HasOne("ApplicationCore.Entities.Order", null)
-                        .WithMany("Items")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ApplicationCore.Entities.Product", b =>
                 {
                     b.HasOne("ApplicationCore.Entities.Brand", "Brand")
@@ -318,11 +212,6 @@ namespace Infrastructure.Data.Migrations
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Basket", b =>
-                {
-                    b.Navigation("Items");
-                });
-
-            modelBuilder.Entity("ApplicationCore.Entities.Order", b =>
                 {
                     b.Navigation("Items");
                 });

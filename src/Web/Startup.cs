@@ -1,4 +1,5 @@
 using ApplicationCore.Interfaces;
+using ApplicationCore.Services;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
@@ -14,7 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.Filters;
 using Web.Interfaces;
+using Web.Middlewares;
 using Web.Services;
 
 namespace Web
@@ -39,9 +42,12 @@ namespace Web
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>();
             services.AddScoped(typeof(IRepository<>),typeof(EfRepository<>));
+            services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IListViewModelService, ListViewModelService>();
             services.AddScoped<IHomeViewModelService, HomeViewModelService>();
             services.AddScoped<ISingleProductViewModelService, SingleProductViewModelService>();
+            services.AddScoped<IBasketViewModelService, BasketViewModelService>();
             services.AddControllersWithViews();
         }
 
@@ -66,6 +72,8 @@ namespace Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseBasketTransfer();
 
             app.UseEndpoints(endpoints =>
             {

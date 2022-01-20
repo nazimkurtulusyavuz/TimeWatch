@@ -17,14 +17,18 @@
     }
     else
     {
-        <li class="btn-group mx-2" role="group">
-            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-                <i class="fas fa-user fa-lg"></i>
+        <li class="btn-group" role="group">
+            <button type="button" class="btn dropdown-toggle text-left d-none d-sm-flex" data-toggle="dropdown">
+                <i class="fas fa-user fa-lg text-black-50"></i>
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                <a class="dropdown-item nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                <a class="dropdown-item nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>                               
             </div>
+        </li>
+        <li class="d-block d-sm-none">
+            <a class="dropdown-item nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="dropdown-item nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </li>
     }
 </ul>

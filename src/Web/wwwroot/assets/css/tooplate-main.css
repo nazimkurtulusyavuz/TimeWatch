@@ -369,12 +369,12 @@ a {
 #filter button {
 	outline: none;
 }
-#filter .btn-primary.focus,
-.btn-primary:focus {
+#filter /*.btn-primary.focus,*/
+/*.btn-primary:focus*/ {
 	color: #3a8bcd!important;
 	box-shadow: none!important;
 }
-#filters .btn-primary {
+#filters /*.btn-primary*/ {
 	color: #1e1e1e;
 	border: none;
 	font-size: 15px;

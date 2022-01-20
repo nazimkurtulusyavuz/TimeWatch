@@ -96,3 +96,44 @@ body {
     transform: translate(50%,-50%);
     z-index: 100;
 }*/
+
+.nav-basket-items-count {
+    position: absolute;
+    bottom:-20px;
+    right:-14px;
+}
+
+/* toastr.js
+-------------------------------------------------- */
+.toast-top-right {
+    top: 88px;
+    right: 12px;
+}
+
+/* Shopping Card
+-------------------------------------------------- */
+.number-input > .quantity {
+    width: 70px;
+}
+
+.empty-basket-icon {
+    font-size: 48px;
+}
+
+/* Basket View Component
+-------------------------------------------------- */
+.lh-condensed {
+    line-height: 1.25;
+}
+
+/* Form Validation
+-------------------------------------------------- */
+.field-validation-error {
+    color: var(--danger);
+}
+
+.validation-summary-errors > ul {
+    margin-bottom: 0;
+    /*list-style: none;
+    padding:0;*/
+}

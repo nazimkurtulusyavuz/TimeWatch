@@ -81,7 +81,7 @@
                                     }
                                 </div>
                             </a>
-                            <a asp-controller="Home" asp-action="Index" asp-route-product="@Model.MostPopularProducts[i].Name">
+                            <a href="#" data-add-to-basket="@Model.MostPopularProducts[i].Id">
                                 <i class="fas fa-cart-plus btn-primary btn-block text-center py-2 fa-lg"></i>
                             </a>
                         </div>
@@ -137,7 +137,7 @@
                                     }
                                 </div>
                             </a>
-                            <a asp-controller="Home" asp-action="Index" asp-route-product="@Model.MostRecentProducts[i].Name">
+                            <a href="#" data-add-to-basket="@Model.MostRecentProducts[i].Id">
                                 <i class="fas fa-cart-plus btn-primary btn-block text-center py-2 fa-lg"></i>
                             </a>
                         </div>
@@ -193,7 +193,7 @@
                                     }
                                 </div>
                             </a>
-                            <a asp-controller="Home" asp-action="Index" asp-route-product="@Model.AboutToRunOutProducts[i].Name">
+                            <a href="#" data-add-to-basket="@Model.AboutToRunOutProducts[i].Id">
                                 <i class="fas fa-cart-plus btn-primary btn-block text-center py-2 fa-lg"></i>
                             </a>
                         </div>
@@ -249,7 +249,7 @@
                                     }
                                 </div>
                             </a>
-                            <a asp-controller="Home" asp-action="Index" asp-route-product="@Model.DiscountProducts[i].Name">
+                            <a href="#" data-add-to-basket="@Model.DiscountProducts[i].Id">
                                 <i class="fas fa-cart-plus btn-primary btn-block text-center py-2 fa-lg"></i>
                             </a>
                         </div>
@@ -260,3 +260,21 @@
     </div>
 </div>
 <!-- DiscountProducts Ends Here -->
+
+@section Scripts {
+    <script>
+        $("[data-add-to-basket]").click(function (event) {
+            event.preventDefault();
+            var productId = $(this).data("add-to-basket");
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AddItem", "Basket")",
+                data: { productId : productId},
+                success: function (data) {
+                    $(".nav-basket-items-count").text(data);
+                    toastr.success("The item has been added successfully.");
+                }
+            });
+        });
+    </script>
+}

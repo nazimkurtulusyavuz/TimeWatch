@@ -20,9 +20,9 @@
                     <form action="" method="get">
                         <label for="quantity">Quantity:</label>
                         <input class="quantity-text" id="quantity" min="1" name="quantity" value="1" type="number" style="resize: horizontal; width: 75px;">
-                        <button type="submit" class="btn">
+                        <a href="#" data-add-to-basket="@Model.Id">
                             <i class="fas fa-cart-plus fa-2x" style="color:rgb(58,139,205);"></i>
-                        </button>
+                        </a>
                     </form>
                     <div class="down-content">
                         <div class="categories">
@@ -51,3 +51,22 @@
     </div>
 </div>
 <!-- SingleProduct Ends Here -->
+@section Scripts {
+    <script>
+        $("[data-add-to-basket]").click(function (event) {
+            event.preventDefault();
+            var productId = $(this).data("add-to-basket");
+            var quantity = $("#quantity").val();
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AddItem", "Basket")",
+                data: { productId: productId, quantity: quantity },
+                success: function (data) {
+                    $(".nav-basket-items-count").text(data);
+                    toastr.success("The item has been added successfully.");
+                }
+            });
+        });
+    </script>
+}
+

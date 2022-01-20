@@ -9,5 +9,6 @@ namespace Web
     {
         public const int ITEMS_PER_PAGE_LIST = 4;
         public const int ITEMS_PER_PAGE_INDEX = 4;
+        public const string BASKET_COOKIENAME = "Basket";  //Holds Anon. User's Id
     }
 }
