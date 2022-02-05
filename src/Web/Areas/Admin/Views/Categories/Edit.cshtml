@@ -1,0 +1,23 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Edit the Category</h3>
+    </div>
+    <form method="post">
+        <input asp-for="Id" type="hidden" />
+        <div class="card-body">
+            <div class="form-group">
+                <label asp-for="Name">Category Name</label>
+                <input asp-for="Name" type="text" required class="form-control" />
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary float-right" type="submit">Save</button>
+        </div>
+    </form>
+</div>

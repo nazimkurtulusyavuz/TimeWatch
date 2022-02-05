@@ -1,0 +1,88 @@
+﻿@model NewProductViewModel
+@{ 
+    ViewData["Title"] = "New Product";
+}
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Create a New Product</h3>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <div class="card-body">
+            <div class="form-group">
+                <label asp-for="ProductName">Product Name</label>
+                <input asp-for="ProductName" type="text" class="form-control" />
+                <span asp-validation-for="ProductName"></span>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">File input</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input asp-for="ProductImage" type="file" class="custom-file-input">
+                        <label asp-for="ProductImage" class="custom-file-label">Choose file</label>
+                    </div>
+                </div>
+                <span asp-validation-for="ProductImage"></span>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="ProductPictureUri">Picture Uri</label>
+                <input asp-for="ProductPictureUri" type="text" class="form-control" id="pictureUri"/>
+                <span asp-validation-for="ProductPictureUri"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="CategoryId">Category</label>
+                <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="CategoryId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BrandId">Brand</label>
+                <select asp-for="BrandId" asp-items="Model.Brands" class="form-control">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="BrandId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StyleId">Style</label>
+                <select asp-for="StyleId" asp-items="Model.Styles" class="form-control">
+                    <option value="">Select</option>
+                </select>
+                <span asp-validation-for="StyleId"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductPrice">Price</label>
+                <input asp-for="ProductPrice" type="text" class="form-control" />
+                <span asp-validation-for="ProductPrice"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductDiscountRate">Discount Rate</label>
+                <input asp-for="ProductDiscountRate" type="number" class="form-control"/>
+                <span asp-validation-for="ProductDiscountRate"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductSalesQuantity">Sales Quantity</label>
+                <input asp-for="ProductSalesQuantity" type="number" class="form-control"/>
+                <span asp-validation-for="ProductSalesQuantity"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductStockQuantity">Stock Quantity</label>
+                <input asp-for="ProductStockQuantity" type="number" class="form-control"/>
+                <span asp-validation-for="ProductStockQuantity"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductDescription">Description</label>
+                <input asp-for="ProductDescription" type="text" class="form-control" />
+                <span asp-validation-for="ProductDescription"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary float-right" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{ 
+<script>
+    bsCustomFileInput.init();
+</script>
+}

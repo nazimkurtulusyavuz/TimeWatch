@@ -1,0 +1,54 @@
+﻿@model List<Brand>
+
+@{
+    ViewData["Title"] = "Brands";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <table id="tblBrands" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Brand brand in Model)
+                {
+                    <tr>
+                        <td>@brand.Id</td>
+                        <td>@brand.Name</td>
+                        <td class="text-center">
+                            <a asp-controller="Brands" asp-action="Edit" asp-route-id="@brand.Id">
+                                <i class="fas fa-edit text-info"></i>
+                            </a>
+                            <a asp-controller="Brands" asp-action="Delete" asp-route-id="@brand.Id">
+                                <i class="fas fa-trash-alt text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts  {
+    <script>
+
+        @{ var message = Context.Request.Query["message"]; }
+        @if (message.Count > 0)
+        {
+            <text>toastr.success("The brand has been deleted successfully.");</text>
+        }
+
+        $("#tblBrands").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    </script>
+}  

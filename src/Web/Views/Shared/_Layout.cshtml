@@ -27,10 +27,10 @@
             <div class="container">
                 <div>
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/uploads/logo/logo.png" width=50/>
+                        <img src="~/uploads/logo/logo.png" width=50 />
                         @*<span class="font-weight-bold">T</span>
-                        <span class="font-italic text-primary">&</span>
-                        <span class="font-weight-bold">W</span>*@
+                            <span class="font-italic text-primary">&</span>
+                            <span class="font-weight-bold">W</span>*@
                     </a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -66,15 +66,44 @@
                             <a class="nav-link" asp-area="" asp-controller="" asp-action="">Brands</a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav">
-                        <li class="navbar-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-search fa-lg ml-3 ml-sm-auto"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    @*<ul class="navbar-nav">
+                            <li class="navbar-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-search fa-lg ml-3 ml-sm-auto"></i>
+                                </a>
+                            </li>
+                        </ul>*@
+                    @*@if (!User.IsInRole("admin"))
+                    {
+                    <ul class="navbar-nav d-none d-lg-inline-flex">
+                            <li class="navbar-item">
+                                <form asp-controller="Home" asp-action="List" method="get">
+                                    <div class="input-group">
+                                        <input name="q" class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                        <button class="btn btn-primary" id="button-search" type="submit">Go!</button>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    }*@
+                    @*<form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>*@
                     <partial name="_LoginPartial" />
                     <partial name="_NavBasketPartial" />
+                    @if (User.IsInRole("admin"))
+                    {
+                        <ul class="navbar-nav">
+                            <li class="navbar-item">
+                                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="nav-link">
+                                    <span class="text-danger font-weight-bolder">
+                                        <i class="fas fa-tools fa-lg"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    }
                 </div>
             </div>
         </nav>
@@ -118,7 +147,7 @@
     <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-   
+
     <!-- Additional Scripts -->
     <script src="~/assets/js/custom.js"></script>
     <script src="~/assets/js/owl.js"></script>

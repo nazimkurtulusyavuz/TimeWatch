@@ -16,6 +16,7 @@ namespace Infrastructure.Data.Config
             builder.Property(x => x.Name).IsRequired().HasMaxLength(200);
             builder.HasOne(x => x.Category).WithMany().HasForeignKey(x => x.CategoryId);
             builder.HasOne(x => x.Brand).WithMany().HasForeignKey(x => x.BrandId);
+            builder.HasOne(x => x.Style).WithMany().HasForeignKey(x => x.StyleId);
             builder.Property(x => x.Price).HasPrecision(18, 2);
         }
     }

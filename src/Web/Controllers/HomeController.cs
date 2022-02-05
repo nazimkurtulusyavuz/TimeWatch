@@ -32,7 +32,6 @@ namespace Web.Controllers
 
         public async Task<IActionResult> List(string category, string brand, string style, int page = 1)
         {
-
             return View(await _listViewModelService.GetListViewModelAsync(category, brand, style, page));
         }
 

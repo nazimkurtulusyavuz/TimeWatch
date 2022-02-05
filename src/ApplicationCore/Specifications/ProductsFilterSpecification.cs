@@ -10,9 +10,13 @@ namespace ApplicationCore.Specifications
 {
     public class ProductsFilterSpecification : Specification<Product>
     {
+        public ProductsFilterSpecification()
+        {
+            Query.OrderBy(x => x.Id).Include(x => x.Category).Include(x => x.Brand).Include(x => x.Style);
+        }
         public ProductsFilterSpecification(string input)
         {
-            if (input == "createdTime") 
+            if (input == "createdTime")
             {
                 Query.OrderByDescending(x => x.CreatedTime);
             }
@@ -28,9 +32,9 @@ namespace ApplicationCore.Specifications
             {
                 Query.Where(x => x.DiscountRate != 0).OrderByDescending(x => x.DiscountRate);
             }
-            Query.Take(12);  
+            Query.Take(12);
         }
-        
+
         public ProductsFilterSpecification(string category, string brand, string style)
         {
             Query.Include(x => x.Category).Include(x => x.Brand).Include(x => x.Style);
@@ -41,7 +45,7 @@ namespace ApplicationCore.Specifications
             if (style != null)
                 Query.Where(x => x.Style.Name == style);
         }
-       
+
         public ProductsFilterSpecification(string category, string brand, string style, int page, int itemsPerPage) : this(category, brand, style)
         {
             Query.Skip((page - 1) * itemsPerPage).Take(itemsPerPage);

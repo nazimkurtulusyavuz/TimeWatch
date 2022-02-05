@@ -1,0 +1,54 @@
+﻿@model List<Style>
+
+@{
+    ViewData["Title"] = "Styles";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <table id="tblStyles" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Style style in Model)
+                {
+                    <tr>
+                        <td>@style.Id</td>
+                        <td>@style.Name</td>
+                        <td class="text-center">
+                            <a asp-controller="Styles" asp-action="Edit" asp-route-id="@style.Id">
+                                <i class="fas fa-edit text-info"></i>
+                            </a>
+                            <a asp-controller="Styles" asp-action="Delete" asp-route-id="@style.Id">
+                                <i class="fas fa-trash-alt text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts  {
+    <script>
+
+        @{ var message = Context.Request.Query["message"]; }
+        @if (message.Count > 0)
+        {
+            <text>toastr.success("The style has been deleted successfully.");</text>
+        }
+
+        $("#tblStyles").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    </script>
+}  

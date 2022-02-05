@@ -36,8 +36,6 @@ namespace Web.Controllers
         { 
             if (ModelState.IsValid)
             {
-                //payment
-                //create order
                 Order order = await _basketViewModelService.CreateOrderAsync(new Address()
                 {
                     City = vm.City,

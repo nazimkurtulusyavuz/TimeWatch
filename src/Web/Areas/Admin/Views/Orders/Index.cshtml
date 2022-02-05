@@ -1,0 +1,80 @@
+﻿@model List<OrderViewModel>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <table id="tblOrders" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Buyer Id</th>
+                    <th>Order Date</th>
+                    <th>Adress</th>
+                    <th>Order Items</th>
+
+                    @*<th></th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (OrderViewModel order in Model)
+                {
+                <tr>
+                    <td>@order.BuyerId</td>
+                    <td>@order.OrderDate</td>
+                    <td>
+                        @order.ShipToAdress.Country/
+                        @order.ShipToAdress.State/
+                        @order.ShipToAdress.City/
+                        @order.ShipToAdress.Street/
+                        @order.ShipToAdress.ZipCode
+                    </td>
+                    
+                    <td>
+                        <ul>
+                            @foreach (var item in order.Items)
+                            {
+                                <li>
+                                    @item.ProductName
+                                    @Html.Raw("&nbsp;" + "(" + " x") 
+                                    @item.Quantity
+                                    @Html.Raw(")")
+                                    @Html.Raw("&nbsp;")
+                                </li>
+                            }
+                        </ul>
+                    </td>
+
+                    @*<td class="text-center">
+                        <a asp-controller="Orders" asp-action="Edit" asp-route-id="@order.Id">
+                            <i class="fas fa-edit text-info"></i>
+                        </a>
+                        <a asp-controller="Orders" asp-action="Delete" asp-route-id="@order.Id">
+                            <i class="fas fa-trash-alt text-danger"></i>
+                        </a>
+                    </td>*@
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts  {
+    <script>
+
+        @{ var message = Context.Request.Query["message"]; }                        
+        @if (message.Count > 0)
+        {
+            <text>toastr.success("The order has been deleted successfully.");</text>
+        }
+
+        $("#tblOrders").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+    </script>
+}  

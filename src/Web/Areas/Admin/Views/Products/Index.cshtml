@@ -1,0 +1,111 @@
+﻿@model ProductsViewModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="card">
+    <div class="card-body">
+        <table id="tblProducts" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Pic</th>
+                    <th>Categ</th>
+                    <th>Brand</th>
+                    <th>Style</th>
+                    <th>SalesQ</th>
+                    <th>StockQ</th>
+                    <th>Price</th>
+                    <th>Disc</th>
+                    <th>CreTime</th>
+                    <th></th>
+                    <th>Desc</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Product product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.Id</td>
+                        <td width="10" style="font-size:0.7em">@product.Name</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(product.PictureUri))
+                            {
+                                <img src="~/uploads/products/@product.PictureUri" width="60" alt="image" />
+                            }
+                            @*@product.PictureUri*@
+                        </td>
+                        <td>@product.Category.Name</td>
+                        <td>@product.Brand.Name</td>
+                        <td>@product.Style.Name</td>
+                        <td>@product.SalesQuantity</td>
+                        <td>@product.StockQuantity</td>
+                        <td>@product.Price</td>
+                        <td>@product.DiscountRate</td>
+                        <td style="font-size:0.7em" width="10">@product.CreatedTime</td>
+                        <td>
+                            <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id">
+                                <i class="fas fa-edit text-info"></i>
+                            </a>
+                            |
+                            <a href="#" data-delete-id="@product.Id" data-name="@product.Name" data-toggle="modal" data-target="#deleteModal">
+                                <i class="fas fa-trash-alt text-danger"></i>
+                            </a>
+                        </td>
+                        <td>@product.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<form asp-controller="Products" asp-action="Delete" method="post">
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-sm">
+                    Are you sure you want to delete the product named &quot; <span id="modalProductName" class="text-bold"></span> &quot; ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <input id="modalProductId" type="hidden" name="id" value="" />
+                    <button type="submit" class="btn btn-danger">Yes,Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts  {
+    <script>
+        @{ var message = Context.Request.Query["message"]; }
+        @if (message.Count > 0)
+        {
+            <text>toastr.success("The product has been deleted successfully.");</text>
+        }
+
+        $("#tblProducts").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+
+        $("#deleteModal").on("show.bs.modal", function (event) {
+            var btn = $(event.relatedTarget);
+            var modal = $(this);
+            var id = btn.data("delete-id");
+            var name = btn.data("name");
+            modal.find("#modalProductId").val(id);
+            modal.find("#modalProductName").text(name);
+        });
+
+    </script>
+}  

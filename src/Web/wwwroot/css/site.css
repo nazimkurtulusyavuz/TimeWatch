@@ -137,3 +137,34 @@ body {
     /*list-style: none;
     padding:0;*/
 }
+
+/*.carousel-item {
+    height: 100vh;
+    background-size: cover !important;
+    background-position: center !important;
+}*/
+
+#header-carousel {
+    height: 240px;
+}
+
+#cazza1 {
+    height: 240px;
+    background-image: url("~/uploads/carousel/wesse.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+#cazza2 {
+    height: 240px;
+    background-image: url("~/uploads/carousel/fossil.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+#cazza3 {
+    height: 240px;
+    background-image: url("~/uploads/carousel/michaelkors.jpg");
+    background-position: center;
+    background-size: cover;
+}

@@ -15,6 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web.Areas.Admin.Interfaces;
+using Web.Areas.Admin.Services;
 using Web.Filters;
 using Web.Interfaces;
 using Web.Middlewares;
@@ -48,6 +50,12 @@ namespace Web
             services.AddScoped<IHomeViewModelService, HomeViewModelService>();
             services.AddScoped<ISingleProductViewModelService, SingleProductViewModelService>();
             services.AddScoped<IBasketViewModelService, BasketViewModelService>();
+            services.AddScoped<IDashboardViewModelService, DashboardViewModelService>();
+            services.AddScoped<IProductsViewModelService, ProductsViewModelService>();
+            services.AddScoped<INewProductViewModelService, NewProductViewModelService>();
+            services.AddScoped<IEditProductViewModelService, EditProductViewModelService>();
+            services.AddScoped<IOrdersViewModelService, OrdersViewModelService>();
+            services.AddScoped<PhotoService>();
             services.AddControllersWithViews();
         }
 
@@ -77,6 +85,11 @@ namespace Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                name: "areas",
+                pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
+                );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
